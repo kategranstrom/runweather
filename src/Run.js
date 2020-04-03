@@ -1,9 +1,6 @@
 import React from 'react';
 
 export class Run extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     getDateString(milliseconds) {
         const date = new Date(milliseconds);
