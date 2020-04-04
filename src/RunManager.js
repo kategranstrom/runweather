@@ -19,9 +19,10 @@ export class RunManager extends React.Component {
         }
         this.getWorkouts = this.getWorkouts.bind(this);
         this.getCurrWeather = this.getCurrWeather.bind(this);
-        this.toggleAddRun = this.toggleAddRun.bind(this);
-        this.toggleEditRun = this.toggleEditRun.bind(this);
+        this.handleAddRun = this.handleAddRun.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleUpdateRun = this.handleUpdateRun.bind(this);
+        this.handleDeleteRun = this.handleDeleteRun.bind(this);
     }
 
     componentDidMount() {
@@ -33,21 +34,21 @@ export class RunManager extends React.Component {
     fetchWorkouts() {
         return fetch(API + '/api/workouts')
             .then(
-                function(response) {
-                if (response.status !== 200) {
-                    console.log('Looks like there was a problem. Status Code: ' +
-                    response.status);
-                    return;
-                }
-            
-                // Examine the text in the response
-                return response.json().then(function(data) {
-                    console.log(data)
-                    return data;
-                });
+                function (response) {
+                    if (response.status !== 200) {
+                        console.log('Looks like there was a problem. Status Code: ' +
+                            response.status);
+                        return;
+                    }
+
+                    // Examine the text in the response
+                    return response.json().then(function (data) {
+                        console.log(data)
+                        return data;
+                    });
                 }
             )
-            .catch(function(err) {
+            .catch(function (err) {
                 console.log('Fetch Error :-S', err);
             });
     }
@@ -66,7 +67,7 @@ export class RunManager extends React.Component {
         //KGTODO: make this variable
         var city = 'Revelstoke'
         return fetch('https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=' + key)
-            .then(function(response) { return response.json() })
+            .then(function (response) { return response.json() })
     }
 
     getCurrWeather() {
@@ -80,15 +81,10 @@ export class RunManager extends React.Component {
     }
 
     //KGTODO: same struct as codeacademy handleClick does setState?
-    toggleAddRun(e) {
+    handleAddRun(e) {
         this.setState({
-            showAddRun: !this.state.showAddRun
-        })
-    }
-
-    toggleEditRun(e) {
-        this.setState({
-            showEditRun: !this.state.showEditRun
+            showAddRun: true,
+            showEditRun: false
         })
     }
 
@@ -97,7 +93,7 @@ export class RunManager extends React.Component {
         fetch(API + '/api/workout/', {
             method: 'POST',
             headers: {
-                "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"  
+                "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
             },
             body: params,
             mode: 'no-cors'
@@ -108,22 +104,69 @@ export class RunManager extends React.Component {
         })
     }
 
+    updateWorkout(id, params) {
+        //KGTODO: edit db to store new params --> variable params?
+        fetch(API + '/api/updateworkout/' + id, {
+            method: 'POST',
+            headers: {
+                "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+            },
+            body: params,
+            mode: 'no-cors'
+        }).then(function (data) {
+            console.log('Request succeeded with JSON response', data);
+        }).catch(function (error) {
+            console.log('Request failed', error)
+        })
+    }
+
+    deleteWorkout(id) {
+        fetch('http://localhost:8000/api/workout/delete/' + id)
+            .then(function (data) {
+                console.log('Request succeeded with JSON response', data);
+            })
+            .catch(function (error) {
+                console.log('Request failed', error);
+            });
+    }
+
     handleSubmit(e) {
         const formData = new FormData(e.target);
         const date = Date.now();
-        var params = 'userId=1&date='+date+'&';
+        var params = 'userId=1&date=' + date + '&';
         for (var [key, val] of formData.entries()) {
-            params += key+'='+val+'&';
+            params += key + '=' + val + '&';
         }
-        params.slice(0, -1);
+        params = params.slice(0, -1);
         this.saveWorkout(params);
     }
 
-    onEditRun(run) {
+    handleEditRun(run) {
         this.setState({
             editingRun: run,
-            showEditRun: true
+            showEditRun: true,
+            showAddRun: false
         })
+    }
+
+    handleUpdateRun(e) {
+        const formData = new FormData(e.target);
+        const run = this.state.editingRun;
+        var params = 'userId=' + run.userId + '&date=' + run.date + '&temperature=' + run.temperature + '&';
+        for (var [key, val] of formData.entries()) {
+            params += key + '=' + val + '&';
+        }
+        params = params.slice(0, -1);
+        this.updateWorkout(run.id, params);
+    }
+
+    handleDeleteRun(e) {
+        this.deleteWorkout(this.state.editingRun.id)
+        this.setState({
+            editingRun: null,
+            showEditRun: false
+        })
+        this.getWorkouts();
     }
 
     render() {
@@ -134,19 +177,22 @@ export class RunManager extends React.Component {
                 </header>
                 <div>
                     {this.state.runs.map((run, index) => (
-                        <button onClick={e => this.onEditRun(run)}>
-                            <Run key={index} run={run} />
-                        </button>
+                        <div key={index}>
+                            <button onClick={e => this.handleEditRun(run)}>
+                                <Run run={run} />
+                            </button>
+                            <br />
+                        </div>
                     ))}
                 </div>
-                <button onClick={this.toggleAddRun}>
+                <button onClick={this.handleAddRun}>
                     Add Run
                     </button>
-                <Modal onClose={this.toggleAddRun} show={this.state.showAddRun}>
-                    <AddRunForm onSubmit={this.handleSubmit} currWeather={this.state.currWeather}/>
+                <Modal show={this.state.showAddRun}>
+                    <AddRunForm onSubmit={this.handleSubmit} currWeather={this.state.currWeather} />
                 </Modal>
-                <Modal onClose={this.toggleEditRun} show={this.state.showEditRun}>
-                    <EditRun run={this.state.run} onSubmit={this.handleSubmitEdit}/>
+                <Modal show={this.state.showEditRun}>
+                    <EditRun run={this.state.editingRun} onSubmit={this.handleUpdateRun} onDelete={this.handleDeleteRun} />
                 </Modal>
             </div>
         )

@@ -85,8 +85,8 @@ app.post("/api/workout/", (req, res, next) => {
     });
 })
 
-app.patch("/api/workout/:id", (req, res, next) => {
-	console.log('patching')
+//patch hack, actual app.patch wasn't working
+app.post("/api/updateworkout/:id", (req, res, next) => {
     var data = {
         userId: req.body.userId,
         date: req.body.date,
@@ -117,7 +117,6 @@ app.patch("/api/workout/:id", (req, res, next) => {
 
 //delete hack, actual app.delete wasn't working
 app.get("/api/workout/delete/:id", (req, res, next) => {
-	console.log('deleting backend')
     workoutdb.run(
         'DELETE FROM workout WHERE id = ?',
         [req.params.id],
