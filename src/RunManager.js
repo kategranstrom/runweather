@@ -1,8 +1,8 @@
 import React from 'react';
 import { Run } from './Run';
-import { Modal } from './Modal';
-import { AddRunForm } from './AddRunForm';
+import { AddRun } from './AddRun';
 import { EditRun } from './EditRun';
+import { Modal } from './Modal';
 
 const API = 'http://localhost:8000';
 
@@ -14,21 +14,15 @@ export class RunManager extends React.Component {
             runs: [],
             editingRun: null,
             currWeather: null,
-            showAddRun: false,
             showEditRun: false,
         }
         this.getWorkouts = this.getWorkouts.bind(this);
-        this.getCurrWeather = this.getCurrWeather.bind(this);
-        this.handleAddRun = this.handleAddRun.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
         this.handleUpdateRun = this.handleUpdateRun.bind(this);
         this.handleDeleteRun = this.handleDeleteRun.bind(this);
     }
 
     componentDidMount() {
         this.getWorkouts();
-        //KGTODO: will the weather update enough?
-        this.getCurrWeather();
     }
 
     fetchWorkouts() {
@@ -62,48 +56,6 @@ export class RunManager extends React.Component {
         }.bind(this));
     }
 
-    fetchCurrWeather() {
-        var key = 'cfa60c427275f8728cc2d1a469c4edb2';
-        //KGTODO: make this variable
-        var city = 'Revelstoke'
-        return fetch('https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=' + key)
-            .then(function (response) { return response.json() })
-    }
-
-    getCurrWeather() {
-        this.fetchCurrWeather().then(function (data) {
-            console.error(data)
-            //KGTODO: store a weather obj w desc, wind, etc
-            this.setState({
-                currWeather: data
-            })
-        }.bind(this))
-    }
-
-    //KGTODO: same struct as codeacademy handleClick does setState?
-    handleAddRun(e) {
-        this.setState({
-            showAddRun: true,
-            showEditRun: false
-        })
-    }
-
-    saveWorkout(params) {
-        //KGTODO: edit db to store new params --> variable params?
-        fetch(API + '/api/workout/', {
-            method: 'POST',
-            headers: {
-                "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
-            },
-            body: params,
-            mode: 'no-cors'
-        }).then(function (data) {
-            console.log('Request succeeded with JSON response', data);
-        }).catch(function (error) {
-            console.log('Request failed', error)
-        })
-    }
-
     updateWorkout(id, params) {
         //KGTODO: edit db to store new params --> variable params?
         fetch(API + '/api/updateworkout/' + id, {
@@ -128,17 +80,6 @@ export class RunManager extends React.Component {
             .catch(function (error) {
                 console.log('Request failed', error);
             });
-    }
-
-    handleSubmit(e) {
-        const formData = new FormData(e.target);
-        const date = Date.now();
-        var params = 'userId=1&date=' + date + '&';
-        for (var [key, val] of formData.entries()) {
-            params += key + '=' + val + '&';
-        }
-        params = params.slice(0, -1);
-        this.saveWorkout(params);
     }
 
     handleEditRun(run) {
@@ -185,12 +126,7 @@ export class RunManager extends React.Component {
                         </div>
                     ))}
                 </div>
-                <button onClick={this.handleAddRun}>
-                    Add Run
-                    </button>
-                <Modal show={this.state.showAddRun}>
-                    <AddRunForm onSubmit={this.handleSubmit} currWeather={this.state.currWeather} />
-                </Modal>
+                <AddRun />
                 <Modal show={this.state.showEditRun}>
                     <EditRun run={this.state.editingRun} onSubmit={this.handleUpdateRun} onDelete={this.handleDeleteRun} />
                 </Modal>
