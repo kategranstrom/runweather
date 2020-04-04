@@ -11,9 +11,9 @@ export class Modal extends React.Component {
                 <h2>Modal Window</h2>
                 <div className="content">{this.props.children}</div>
                 <div className="actions">
-                    <button onClick={this.props.onClose}>
+                    {/*<button onClick={this.props.onClose}>
                         Close
-                    </button>
+                    </button>*/}
                 </div>
             </div>
         );

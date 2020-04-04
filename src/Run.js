@@ -8,14 +8,14 @@ export class Run extends React.Component {
     }
 
     render() {
-        const item = this.props.item;
+        const run = this.props.run;
         return (
             <div>
                 <p>
-                    {this.getDateString(item.date)}
+                    {this.getDateString(run.date)}
                 </p>
                 <p>
-                    {item.temperature}: {item.topLayer}
+                    {run.temperature}: {run.topLayer}
                 </p>
             </div>
         )

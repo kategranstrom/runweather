@@ -23,11 +23,11 @@ app.get("/api/workouts", (req, res, next) => {
     var sql = "select * from workout"
     var params = []
     workoutdb.all(sql, params, (err, rows) => {
+		res.header('Access-Control-Allow-Origin', '*');
         if (err) {
           res.status(400).json({"error":err.message});
           return;
         }
-		res.header('Access-Control-Allow-Origin', '*');
         res.json({
             "message":"success",
             "data":rows
@@ -39,11 +39,11 @@ app.get("/api/workout/:userId", (req, res, next) => {
       var sql = "select * from workout where userId = ?"
 	    var params = [req.params.userId]
 	    workoutdb.all(sql, params, (err, rows) => {
+			res.header('Access-Control-Allow-Origin', '*');
 	        if (err) {
 	          res.status(400).json({"error":err.message});
 	          return;
 	        }
-			res.header('Access-Control-Allow-Origin', '*');
 	        res.json({
 	            "message":"success",
 	            "data":rows
@@ -72,11 +72,11 @@ app.post("/api/workout/", (req, res, next) => {
     var sql ='INSERT INTO workout (userId, date, temperature, topLayer) VALUES (?,?,?,?)'
     var params =[data.userId, data.date, data.temperature, data.topLayer]
     workoutdb.run(sql, params, function (err, result) {
+        res.header('Access-Control-Allow-Origin', '*');
         if (err){
             res.status(400).json({"error": err.message})
             return;
         }
-		res.header('Access-Control-Allow-Origin', '*');
         res.json({
             "message": "success",
             "data": data,
@@ -102,11 +102,11 @@ app.patch("/api/workout/:id", (req, res, next) => {
            WHERE id = ?`,
         [data.userId, data.date, data.temperature, data.topLayer, req.params.id],
         function (err, result) {
+			res.header('Access-Control-Allow-Origin', '*');
             if (err){
                 res.status(400).json({"error": res.message})
                 return;
             }
-			res.header('Access-Control-Allow-Origin', '*');
             res.json({
                 message: "success",
                 data: data,
@@ -122,11 +122,11 @@ app.get("/api/workout/delete/:id", (req, res, next) => {
         'DELETE FROM workout WHERE id = ?',
         [req.params.id],
         function (err, result) {
+			res.header('Access-Control-Allow-Origin', '*');
             if (err){
                 res.status(400).json({"error": res.message})
                 return;
             }
-			res.header('Access-Control-Allow-Origin', '*');
             res.json({"message":"deleted", changes: this.changes})
     });
 })
