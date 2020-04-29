@@ -1,0 +1,14 @@
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    background: white;
+    border: 1px solid #ccc;
+    /*transition: 5s ease-out;  what does this do */
+    box-shadow: -1rem 1rem 3rem rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    text-align: center;
+    padding-bottom: 16px;
+}

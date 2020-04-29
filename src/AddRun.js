@@ -14,6 +14,7 @@ export class AddRun extends React.Component {
         this.getCurrWeather = this.getCurrWeather.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleAddRun = this.handleAddRun.bind(this);
+        this.handleCancel = this.handleCancel.bind(this);
     }
 
     componentDidMount() {
@@ -31,7 +32,7 @@ export class AddRun extends React.Component {
 
     getCurrWeather() {
         this.fetchCurrWeather().then(function (data) {
-            console.error(data)
+            console.log(data)
             this.setState({
                 currWeather: data
             })
@@ -73,14 +74,21 @@ export class AddRun extends React.Component {
         })
     }
 
+    handleCancel(e) {
+        this.setState({
+            showAddRun: false
+        })
+    }
+
     render() {
         return (
             <div>
-                <button onClick={this.handleAddRun}>
+                <button className="action" onClick={this.handleAddRun}>
                     Add Run
                 </button>
                 <Modal show={this.state.showAddRun}>
-                    <AddRunForm onSubmit={this.handleSubmit} currWeather={this.state.currWeather} />
+                    <h2>Add Run</h2>
+                    <AddRunForm onSubmit={this.handleSubmit} onCancel={this.handleCancel} currWeather={this.state.currWeather} />
                 </Modal>
             </div>
         )

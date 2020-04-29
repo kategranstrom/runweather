@@ -1,8 +1,8 @@
 import React from 'react';
 import { Run } from './Run';
+import { SideBar } from './SideBar';
 import { AddRun } from './AddRun';
 import { EditRun } from './EditRun';
-import { Modal } from './Modal';
 
 const API = 'http://localhost:8000';
 
@@ -12,13 +12,12 @@ export class RunManager extends React.Component {
         this.state = {
             loading: true,
             runs: [],
-            editingRun: null,
-            currWeather: null,
-            showEditRun: false,
+            sortBy: 'date',
+            editingRun: null
         }
         this.getWorkouts = this.getWorkouts.bind(this);
-        this.handleUpdateRun = this.handleUpdateRun.bind(this);
-        this.handleDeleteRun = this.handleDeleteRun.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
+        this.changeSorting = this.changeSorting.bind(this);
     }
 
     componentDidMount() {
@@ -49,6 +48,8 @@ export class RunManager extends React.Component {
 
     getWorkouts() {
         this.fetchWorkouts().then(function (response) {
+            const runs = response.data;
+            runs.sort((a, b) => a[this.state.sortBy] - b[this.state.sortBy])
             this.setState({
                 loading: false,
                 runs: response.data || []
@@ -56,58 +57,23 @@ export class RunManager extends React.Component {
         }.bind(this));
     }
 
-    updateWorkout(id, params) {
-        //KGTODO: edit db to store new params --> variable params?
-        fetch(API + '/api/updateworkout/' + id, {
-            method: 'POST',
-            headers: {
-                "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
-            },
-            body: params,
-            mode: 'no-cors'
-        }).then(function (data) {
-            console.log('Request succeeded with JSON response', data);
-        }).catch(function (error) {
-            console.log('Request failed', error)
-        })
-    }
-
-    deleteWorkout(id) {
-        fetch('http://localhost:8000/api/workout/delete/' + id)
-            .then(function (data) {
-                console.log('Request succeeded with JSON response', data);
-            })
-            .catch(function (error) {
-                console.log('Request failed', error);
-            });
-    }
-
     handleEditRun(run) {
         this.setState({
-            editingRun: run,
-            showEditRun: true,
-            showAddRun: false
+            editingRun: run
         })
     }
 
-    handleUpdateRun(e) {
-        const formData = new FormData(e.target);
-        const run = this.state.editingRun;
-        var params = 'userId=' + run.userId + '&date=' + run.date + '&temperature=' + run.temperature + '&';
-        for (var [key, val] of formData.entries()) {
-            params += key + '=' + val + '&';
-        }
-        params = params.slice(0, -1);
-        this.updateWorkout(run.id, params);
-    }
-
-    handleDeleteRun(e) {
-        this.deleteWorkout(this.state.editingRun.id)
+    handleDelete() {
         this.setState({
-            editingRun: null,
-            showEditRun: false
+            editingRun: null
         })
-        this.getWorkouts();
+        this.getWorkouts()
+    }
+
+    changeSorting(newSortBy) {
+        this.setState({
+            sortBy: newSortBy
+        })
     }
 
     render() {
@@ -116,20 +82,20 @@ export class RunManager extends React.Component {
                 <header className="App-header">
                     <h1>Runs</h1>
                 </header>
-                <div>
+                <SideBar onChangeSortBy={this.ChangeSortBy}/>
+                <div className="content-wrapper">
                     {this.state.runs.map((run, index) => (
                         <div key={index}>
-                            <button onClick={e => this.handleEditRun(run)}>
+                            <button className="card" onClick={e => this.handleEditRun(run)}>
                                 <Run run={run} />
+                                <span className="ripple"></span>
                             </button>
                             <br />
                         </div>
                     ))}
                 </div>
                 <AddRun />
-                <Modal show={this.state.showEditRun}>
-                    <EditRun run={this.state.editingRun} onSubmit={this.handleUpdateRun} onDelete={this.handleDeleteRun} />
-                </Modal>
+                <EditRun run={this.state.editingRun} update={this.handleDelete} />
             </div>
         )
     }

@@ -1,4 +1,5 @@
 import React from 'react';
+import "./form.css";
 
 export class AddRunForm extends React.Component {
     pad(n) {
@@ -53,7 +54,8 @@ export class AddRunForm extends React.Component {
                 <br />
                 <textarea id="notes" name="notes" rows="2" cols="30"></textarea>
                 <br />
-                <input type="submit" name="submit" value="Add" />
+                <button className="action" onClick={this.props.onCancel}>Cancel</button>
+                <input type="submit" className="action" name="submit" value="Add" />
             </form>
         )
     }

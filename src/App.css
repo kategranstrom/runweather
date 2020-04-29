@@ -1,38 +1,105 @@
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+  background-color: #EFEFF4;
+  height: 100%;
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 10vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  background-color: #09245B;
+  position: fixed;
+  width: 100%;
+  font-size: 1.3em;
   color: white;
+  box-shadow: 0 0px 1px 1px #ccc;
+  z-index: 9;
 }
 
-.App-link {
-  color: #61dafb;
+h1 {
+  margin: .6em 0;
 }
 
-@keyframes App-logo-spin {
+.content-wrapper {
+  margin-top: 5.6em;
+}
+
+.card {
+  background-color: white;
+  border: none;
+  width: 90%;
+  /*max-width: 800px;*/
+  border-radius: .5em;
+  box-shadow: -1px 1px 5px 0px rgba(204, 204, 204, .2);
+  padding: 4px 32px;
+  margin: 12px 8px;
+  text-align: left;
+  overflow: hidden;
+  position: relative;
+  outline: none;
+}
+
+/*.ripple {
+ position: absolute;
+  border-radius: 50%;
+  background-color: rgba(204, 204, 204, .2);
+  width: 100px;
+  height: 100px;
+  margin-top: -50px;
+  margin-left: -50px;
+  opacity: 0;
+}
+
+.card:active > .ripple {
+  animation: ripple 1s;
+}
+
+.card span:active {
+  position: absolute;
+  border-radius: 50%;
+  background-color: rgba(204, 204, 204, .2);
+  width: 100px;
+  height: 100px;
+  margin-top: -50px;
+  margin-left: -50px;
+  /*animation: ripple 1s;
+  opacity: 0;
+}*/
+
+@keyframes ripple {
   from {
-    transform: rotate(0deg);
+    opacity: 1;
+    transform: scale(0);
   }
   to {
-    transform: rotate(360deg);
+    opacity: 0;
+    transform: scale(10);
+  }
+}
+
+.action {
+    background-color: #264A91;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    margin: 4px 4px;
+    cursor: pointer;
+    outline: none;
+}
+
+.action:hover {
+  background-color: #163675;
+}
+
+.action:active, .action:focus {
+  animation: scale .2s ease-out;
+  border: none;
+}
+
+@keyframes scale {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.1);
   }
 }

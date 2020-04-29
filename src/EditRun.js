@@ -1,41 +1,64 @@
 import React from 'react';
+import { Modal } from './Modal';
+import { EditRunForm } from './EditRunForm';
+
+const API = 'http://localhost:8000'
 
 export class EditRun extends React.Component {
-    getDate(milliseconds) {
-        const date = new Date(milliseconds);
-        return date.toDateString();
+    constructor(props) {
+        super(props);
+        this.handleUpdateRun = this.handleUpdateRun.bind(this);
+        this.handleDeleteRun = this.handleDeleteRun.bind(this);
+    }
+
+    updateWorkout(id, params) {
+        //KGTODO: edit db to store new params --> variable params?
+        fetch(API + '/api/updateworkout/' + id, {
+            method: 'POST',
+            headers: {
+                "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+            },
+            body: params,
+            mode: 'no-cors'
+        }).then(function (data) {
+            console.log('Request succeeded with JSON response', data);
+        }).catch(function (error) {
+            console.log('Request failed', error)
+        })
+    }
+
+    deleteWorkout(id) {
+        fetch('http://localhost:8000/api/workout/delete/' + id)
+            .then(function (data) {
+                console.log('Request succeeded with JSON response', data);
+            })
+            .catch(function (error) {
+                console.log('Request failed', error);
+            });
+    }
+
+    handleUpdateRun(e) {
+        const formData = new FormData(e.target);
+        const run = this.props.run;
+        var params = 'userId=' + run.userId + '&date=' + run.date + '&temperature=' + run.temperature + '&';
+        for (var [key, val] of formData.entries()) {
+            params += key + '=' + val + '&';
+        }
+        params = params.slice(0, -1);
+        this.updateWorkout(run.id, params);
+    }
+
+    handleDeleteRun(e) {
+        this.deleteWorkout(this.props.run.id)
+        this.props.update();
     }
 
     render() {
-        const run = this.props.run || {};
+        const showEditRun = this.props.run ? true : false;
         return (
-            <div>
-                <h1>{this.getDate(run.date)}</h1>
-                <p>Temp: {run.temperature} Feels like: {run.feelslike} Humidity: {run.humidity}</p>
-                <form onSubmit={this.props.onSubmit}>
-                <label htmlFor="topLayer">Top Layer</label>
-                <input type="text" defaultValue={run.topLayer} id="topLayer" name="topLayer" />
-                <br />
-                <label htmlFor="bottomLayer">Bottom Layer</label>
-                <input type="text" defaultValue={run.bottomLayer} id="bottomLayer" name="bottomLayer" />
-                <br />
-                <label htmlFor="headband">Headband</label>
-                <input type="checkbox" defaultValue={run.headband} id="headband" name="headband" />
-                <label htmlFor="gloves">Gloves</label>
-                <input type="checkbox" defaultValue={run.gloves} id="gloves" name="gloves" />
-                <label htmlFor="runninghat">Running Hat</label>
-                <input type="checkbox" defaultValue={run.runningHat} id="runninghat" name="runninghat" />
-                <br />
-                <label htmlFor="notes">Notes</label>
-                <br />
-                <textarea id="notes" defaultValue={run.notes} name="notes" rows="2" cols="30"></textarea>
-                <br />
-                <input type="submit" name="submit" value="Edit" />
-            </form>
-            <button onClick={this.props.onDelete}>
-                Delete
-            </button>
-            </div>
+            <Modal show={showEditRun}>
+                <EditRunForm run={this.props.run} onSubmit={this.handleUpdateRun} onDelete={this.handleDeleteRun} />
+            </Modal>
         )
     }
 }
