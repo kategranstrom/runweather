@@ -23,7 +23,7 @@ export class AddRunForm extends React.Component {
     getHumidity() {
         return this.props.currWeather.main.humidity;
     }
-    
+
     render() {
         //KGTODO: edit to use name='extras', which varies based on user input
         return (

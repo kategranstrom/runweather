@@ -2,17 +2,17 @@ import React from 'react';
 import "./form.css";
 
 export class EditRunForm extends React.Component {
-    getDate(milliseconds) {
+    getDateString(milliseconds) {
         const date = new Date(milliseconds);
-        return date.toDateString();
+        return /*date.toLocaleString('default', {weekday: 'short'}) + ', ' +*/ date.toLocaleString('default', {month: 'short'}) + ' ' + date.getDate();
     }
 
     render() {
         const run = this.props.run || {};
         return (
             <div>
-                <h1>{this.getDate(run.date)}</h1>
-                <p>Temp: {run.temperature} Feels like: {run.feelslike} Humidity: {run.humidity}</p>
+                <div className="date">{this.getDateString(run.date)}</div>
+                <div className="weather">Temp: {run.temperature} Feels like: {run.feelslike} Humidity: {run.humidity}</div>
                 <form onSubmit={this.props.onSubmit}>
                 <label htmlFor="topLayer">Top Layer</label>
                 <input type="text" defaultValue={run.topLayer} id="topLayer" name="topLayer" />

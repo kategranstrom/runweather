@@ -17,7 +17,7 @@ export class RunManager extends React.Component {
         }
         this.getWorkouts = this.getWorkouts.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
-        this.changeSorting = this.changeSorting.bind(this);
+        this.changeSortBy = this.changeSortBy.bind(this);
     }
 
     componentDidMount() {
@@ -52,7 +52,7 @@ export class RunManager extends React.Component {
             runs.sort((a, b) => a[this.state.sortBy] - b[this.state.sortBy])
             this.setState({
                 loading: false,
-                runs: response.data || []
+                runs: runs || []
             })
         }.bind(this));
     }
@@ -67,28 +67,29 @@ export class RunManager extends React.Component {
         this.setState({
             editingRun: null
         })
-        this.getWorkouts()
+        this.getWorkouts();
     }
 
-    changeSorting(newSortBy) {
+    changeSortBy(newSortBy) {
+        console.error('hi', newSortBy);
         this.setState({
             sortBy: newSortBy
         })
+        this.getWorkouts();
     }
 
     render() {
         return (
             <div>
                 <header className="App-header">
+                    <SideBar sortBy={this.state.sortBy} onChangeSortBy={this.changeSortBy}/>
                     <h1>Runs</h1>
                 </header>
-                <SideBar onChangeSortBy={this.ChangeSortBy}/>
                 <div className="content-wrapper">
                     {this.state.runs.map((run, index) => (
                         <div key={index}>
                             <button className="card" onClick={e => this.handleEditRun(run)}>
                                 <Run run={run} />
-                                <span className="ripple"></span>
                             </button>
                             <br />
                         </div>

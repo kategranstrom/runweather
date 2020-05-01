@@ -10,11 +10,6 @@ export class Modal extends React.Component {
             <div className="overlay">
                 <div className="modal" id="modal">
                     <div className="content">{this.props.children}</div>
-                    <div className="actions">
-                        {/*<button onClick={this.props.onClose}>
-                            Close
-                        </button>*/}
-                    </div>
                 </div>
             </div>
         );
