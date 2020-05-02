@@ -41,6 +41,9 @@ export class SideBar extends React.Component {
                     {this.props.sortBy === "mostrelevant" ? check : <div className="spacer"></div>}
                     Most Relevant
                 </div>
+                <div className="listitem">
+                    Also Track
+                </div>
             </div>
         );
         return (

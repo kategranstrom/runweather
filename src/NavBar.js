@@ -10,12 +10,18 @@ export class NavBar extends React.Component {
             showAddRun: false
         }
         this.toggleAddRun = this.toggleAddRun.bind(this);
+        this.update = this.update.bind(this);
     }
 
     toggleAddRun(e) {
         this.setState({
             showAddRun: !this.state.showAddRun
         })
+    }
+
+    update() {
+        this.toggleAddRun();
+        this.props.update();
     }
 
     render() {
@@ -27,7 +33,7 @@ export class NavBar extends React.Component {
                         Add Run
                     </div>
                 </div>
-                <AddRun showAddRun={this.state.showAddRun} onCancel={this.toggleAddRun}/>
+                <AddRun showAddRun={this.state.showAddRun} onCancel={this.toggleAddRun} update={this.update}/>
             </div>
         )
     }

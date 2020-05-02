@@ -62,6 +62,8 @@ export class AddRun extends React.Component {
         }
         params = params.slice(0, -1);
         this.saveWorkout(params);
+        e.preventDefault();
+        this.props.update();
     }
 
     render() {

@@ -46,6 +46,8 @@ export class EditRun extends React.Component {
         }
         params = params.slice(0, -1);
         this.updateWorkout(run.id, params);
+        e.preventDefault();
+        this.props.update();
     }
 
     handleDeleteRun(e) {

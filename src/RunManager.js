@@ -71,7 +71,6 @@ export class RunManager extends React.Component {
     }
 
     changeSortBy(newSortBy) {
-        console.error('hi', newSortBy);
         this.setState({
             sortBy: newSortBy
         })
@@ -96,7 +95,7 @@ export class RunManager extends React.Component {
                     ))}
                 </div>
                 <EditRun run={this.state.editingRun} update={this.handleDelete} />
-                <NavBar />
+                <NavBar update={this.getWorkouts}/>
             </div>
         )
     }
