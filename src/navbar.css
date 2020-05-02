@@ -1,0 +1,30 @@
+.navbar {
+    background-color: #282c34;
+    position: fixed;
+    bottom: 0;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    transform: translate(-50%, 50%);
+    font-size: 1.3em;
+    color: white;
+    overflow: hidden;
+    z-index: 7;
+  }
+
+.navitem {
+    background-color: #282c34;
+    color: white;
+    /*padding: 8px 10vw;
+    font-size: 16px;*/
+    float: right;
+    padding: 19px 14px 0 0;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.navicon {
+    font-size: 24px;
+    padding: 4px 10px 4px 0;
+}

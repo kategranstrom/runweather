@@ -37,11 +37,15 @@ export class SideBar extends React.Component {
                     {this.props.sortBy === "temperature" ? check : <div className="spacer"></div>}
                     Temperature
                 </div>
+                <div className="subitem" onClick={() => this.props.onChangeSortBy('mostrelevant')}>
+                    {this.props.sortBy === "mostrelevant" ? check : <div className="spacer"></div>}
+                    Most Relevant
+                </div>
             </div>
         );
         return (
             <div>
-                <div className="icon" onClick={this.handleToggleSidebar}>
+                <div className="menuicon" onClick={this.handleToggleSidebar}>
                     <MdDehaze />
                 </div>
                 {this.state.sideBarOpen ? sidebar : <div></div>}

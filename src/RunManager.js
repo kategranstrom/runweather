@@ -1,7 +1,7 @@
 import React from 'react';
 import { Run } from './Run';
 import { SideBar } from './SideBar';
-import { AddRun } from './AddRun';
+import { NavBar } from './NavBar';
 import { EditRun } from './EditRun';
 
 const API = 'http://localhost:8000';
@@ -49,7 +49,7 @@ export class RunManager extends React.Component {
     getWorkouts() {
         this.fetchWorkouts().then(function (response) {
             const runs = response.data;
-            runs.sort((a, b) => a[this.state.sortBy] - b[this.state.sortBy])
+            runs.sort((a, b) => b[this.state.sortBy] - a[this.state.sortBy])
             this.setState({
                 loading: false,
                 runs: runs || []
@@ -95,8 +95,8 @@ export class RunManager extends React.Component {
                         </div>
                     ))}
                 </div>
-                <AddRun />
                 <EditRun run={this.state.editingRun} update={this.handleDelete} />
+                <NavBar />
             </div>
         )
     }

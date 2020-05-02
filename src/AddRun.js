@@ -9,12 +9,9 @@ export class AddRun extends React.Component {
         super(props);
         this.state = {
             currWeather: null,
-            showAddRun: false
         }
         this.getCurrWeather = this.getCurrWeather.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleAddRun = this.handleAddRun.bind(this);
-        this.handleCancel = this.handleCancel.bind(this);
     }
 
     componentDidMount() {
@@ -67,30 +64,12 @@ export class AddRun extends React.Component {
         this.saveWorkout(params);
     }
 
-    //KGTODO: same struct as codeacademy handleClick does setState?
-    handleAddRun(e) {
-        this.setState({
-            showAddRun: true
-        })
-    }
-
-    handleCancel(e) {
-        this.setState({
-            showAddRun: false
-        })
-    }
-
     render() {
         return (
-            <div>
-                <button className="action" onClick={this.handleAddRun}>
-                    Add Run
-                </button>
-                <Modal show={this.state.showAddRun}>
-                    <h2>Add Run</h2>
-                    <AddRunForm onSubmit={this.handleSubmit} onCancel={this.handleCancel} currWeather={this.state.currWeather} />
-                </Modal>
-            </div>
+            <Modal show={this.props.showAddRun}>
+                <h2>Add Run</h2>
+                <AddRunForm onSubmit={this.handleSubmit} onCancel={this.props.onCancel} currWeather={this.state.currWeather} />
+            </Modal>
         )
     }
 }
