@@ -67,10 +67,17 @@ app.post("/api/workout/", (req, res, next) => {
         userId: req.body.userId,
         date: req.body.date,
         temperature : req.body.temperature,
-		topLayer: req.body.topLayer
+        humidity: req.body.humidity,
+        feelsLike: req.body.feelsLike,
+        description: req.body.description,
+        windSpeed: req.body.windSpeed,
+        topLayer: req.body.topLayer,
+        bottomLayer: req.body.bottomLayer,
+        extras: req.body.extras,
+        notes: req.body.notes
     }
-    var sql ='INSERT INTO workout (userId, date, temperature, topLayer) VALUES (?,?,?,?)'
-    var params =[data.userId, data.date, data.temperature, data.topLayer]
+    var sql ='INSERT INTO workout (userId, date, temperature, humidity, feelsLike, description, windSpeed, topLayer, bottomLayer, extras, notes) VALUES (?,?,?,?,?,?,?,?,?,?,?)'
+    var params =[data.userId, data.date, data.temperature, data.humidity, data.feelsLike, data.description, data.windSpeed, data.topLayer, data.bottomLayer, data.extras, data.notes]
     workoutdb.run(sql, params, function (err, result) {
         res.header('Access-Control-Allow-Origin', '*');
         if (err){
@@ -91,16 +98,30 @@ app.post("/api/updateworkout/:id", (req, res, next) => {
         userId: req.body.userId,
         date: req.body.date,
         temperature : req.body.temperature,
-		topLayer: req.body.topLayer
+        humidity: req.body.humidity,
+        feelsLike: req.body.feelsLike,
+        description: req.body.description,
+        windSpeed: req.body.windSpeed,
+        topLayer: req.body.topLayer,
+        bottomLayer: req.body.bottomLayer,
+        extras: req.body.extras,
+        notes: req.body.notes
     }
     workoutdb.run(
         `UPDATE workout set 
            userId = COALESCE(?,userId), 
            date = COALESCE(?,date), 
            temperature = COALESCE(?,temperature),
-		   topLayer = COALESCE(?,topLayer)
+           humidity = COALESCE(?,humidity), 
+           feelsLike = COALESCE(?,feelsLike), 
+           description = COALESCE(?,description), 
+           windSpeed = COALESCE(?,windSpeed), 
+           topLayer = COALESCE(?,topLayer)
+           bottomLayer = COALESCE(?,bottomLayer), 
+           extras = COALESCE(?,extras), 
+           notes = COALESCE(?,notes), 
            WHERE id = ?`,
-        [data.userId, data.date, data.temperature, data.topLayer, req.params.id],
+        [data.userId, data.date, data.temperature, , data.humidity, data.feelsLike, data.description, data.windSpeed, data.topLayer, data.bottomLayer, data.extras, data.notes, req.params.id],
         function (err, result) {
 			res.header('Access-Control-Allow-Origin', '*');
             if (err){

@@ -24,6 +24,14 @@ export class AddRunForm extends React.Component {
         return this.props.currWeather.main.humidity;
     }
 
+    getWindSpeed() {
+        return this.props.currWeather.wind.speed*3.6;
+    }
+
+    getDescrption() {
+        return this.props.currWeather.weather[0].description;
+    }
+
     render() {
         //KGTODO: edit to use name='extras', which varies based on user input
         return (
@@ -31,11 +39,17 @@ export class AddRunForm extends React.Component {
                 <label htmlFor="temperature">Temperature (°C) </label>
                 <input type="number" defaultValue={this.getTemperature()} id="temperature" name="temperature" />
                 <br />
-                <label htmlFor="feelslike">Feels Like (°C) </label>
-                <input type="number" defaultValue={this.getFeelsLike()} id="feelslike" name="feelslike" />
+                <label htmlFor="feelsLike">Feels Like (°C) </label>
+                <input type="number" defaultValue={this.getFeelsLike()} id="feelsLike" name="feelsLike" />
                 <br />
                 <label htmlFor="humidity">Humidity (%)</label>
                 <input type="number" defaultValue={this.getHumidity()} id="humidity" name="humidity" />
+                <br />
+                <label htmlFor="windSpeed">Wind Speed (km/h)</label>
+                <input type="number" defaultValue={this.getWindSpeed()} id="windSpeed" name="windSpeed" />
+                <br />
+                <label htmlFor="description">Description</label>
+                <input type="text" defaultValue={this.getDescrption()} id="description" name="description" />
                 <br />
                 <label htmlFor="topLayer">Top Layer</label>
                 <input type="text" id="topLayer" name="topLayer" />
