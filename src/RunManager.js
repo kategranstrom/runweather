@@ -13,11 +13,13 @@ export class RunManager extends React.Component {
             loading: true,
             runs: [],
             sortBy: 'date',
+            extras: ['Gloves', 'Headband', 'Running Hat'],
             editingRun: null
         }
         this.getWorkouts = this.getWorkouts.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
         this.changeSortBy = this.changeSortBy.bind(this);
+        this.changeExtras = this.changeExtras.bind(this);
     }
 
     componentDidMount() {
@@ -77,11 +79,17 @@ export class RunManager extends React.Component {
         this.getWorkouts();
     }
 
+    changeExtras(newExtras) {
+        this.setState({
+            extras: newExtras
+        })
+    }
+
     render() {
         return (
             <div>
                 <header className="App-header">
-                    <SideBar sortBy={this.state.sortBy} onChangeSortBy={this.changeSortBy}/>
+                    <SideBar sortBy={this.state.sortBy} onChangeSortBy={this.changeSortBy} extras={this.state.extras} onChangeExtras={this.changeExtras}/>
                     <h1>Runs</h1>
                 </header>
                 <div className="content-wrapper">
@@ -94,8 +102,8 @@ export class RunManager extends React.Component {
                         </div>
                     ))}
                 </div>
-                <EditRun run={this.state.editingRun} update={this.handleDelete} />
-                <NavBar update={this.getWorkouts}/>
+                <EditRun run={this.state.editingRun} extras={this.state.extras} update={this.handleDelete} />
+                <NavBar update={this.getWorkouts} extras={this.state.extras}/>
             </div>
         )
     }

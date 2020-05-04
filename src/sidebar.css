@@ -23,18 +23,54 @@
     padding: 8px 16px;
 }
 
-.subitem {
-    padding: 8px 32px;
+.subsortby {
+    padding: 8px 45px;
     cursor: pointer;
 }
 
-.subitem:active {
+.subsortby:active {
     transform: translate(-1px, 2px);
 }
 
 .check {
     display: inline;
     padding: 0 4px 0 0;
+}
+
+.subalsotrack {
+    padding: 8px 69.8px;
+    cursor: text;
+}
+
+input[type=text].subalsotrack {
+    width: 110px;
+    padding: 2px 2px;
+    color: white;
+    font-size: 16px;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid white;
+}
+
+.sidebar .righticon {
+    display: inline;
+    position: absolute;
+    color: #8e8e8e;
+    font-size: 16px;
+    right: 10px;
+    padding-top: 5px;
+    cursor: pointer;
+}
+
+.sidebar .lefticon {
+    display: inline;
+    margin-left: 41px;
+    cursor: pointer;
+}
+
+.sidebar form {
+    padding: 8px 0;
 }
 
 .spacer {

@@ -33,7 +33,7 @@ export class NavBar extends React.Component {
                         Add Run
                     </div>
                 </div>
-                <AddRun showAddRun={this.state.showAddRun} onCancel={this.toggleAddRun} update={this.update}/>
+                <AddRun showAddRun={this.state.showAddRun} onCancel={this.toggleAddRun} update={this.update} extras={this.props.extras}/>
             </div>
         )
     }

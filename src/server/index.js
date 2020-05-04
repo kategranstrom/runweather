@@ -116,12 +116,12 @@ app.post("/api/updateworkout/:id", (req, res, next) => {
            feelsLike = COALESCE(?,feelsLike), 
            description = COALESCE(?,description), 
            windSpeed = COALESCE(?,windSpeed), 
-           topLayer = COALESCE(?,topLayer)
+           topLayer = COALESCE(?,topLayer),
            bottomLayer = COALESCE(?,bottomLayer), 
            extras = COALESCE(?,extras), 
-           notes = COALESCE(?,notes), 
+           notes = COALESCE(?,notes)
            WHERE id = ?`,
-        [data.userId, data.date, data.temperature, , data.humidity, data.feelsLike, data.description, data.windSpeed, data.topLayer, data.bottomLayer, data.extras, data.notes, req.params.id],
+        [data.userId, data.date, data.temperature, data.humidity, data.feelsLike, data.description, data.windSpeed, data.topLayer, data.bottomLayer, data.extras, data.notes, req.params.id],
         function (err, result) {
 			res.header('Access-Control-Allow-Origin', '*');
             if (err){

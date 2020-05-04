@@ -57,12 +57,12 @@ export class AddRunForm extends React.Component {
                 <label htmlFor="bottomLayer">Bottom Layer</label>
                 <input type="text" id="bottomLayer" name="bottomLayer" />
                 <br />
-                <label htmlFor="headband">Headband</label>
-                <input type="checkbox" id="headband" name="headband" />
-                <label htmlFor="gloves">Gloves</label>
-                <input type="checkbox" id="gloves" name="gloves" />
-                <label htmlFor="runninghat">Running Hat</label>
-                <input type="checkbox" id="runninghat" name="runninghat" />
+                {this.props.extras.map((extra, index) => (
+                    <div className="inline" key={index}>
+                        <label htmlFor={extra}>{extra}</label>
+                        <input type="checkbox" id={extra} value={extra} name="extras" />
+                    </div>
+                ))}
                 <br />
                 <label htmlFor="notes">Notes</label>
                 <br />

@@ -9,6 +9,9 @@ export class EditRunForm extends React.Component {
 
     render() {
         const run = this.props.run || {};
+        const selectedExtras = JSON.parse(run.extras);
+        const unselectedExtras = this.props.extras.filter(extra => !selectedExtras.includes(extra))
+        console.error('run', run)
         return (
             <div>
                 <div className="date">{this.getDateString(run.date)}</div>
@@ -20,13 +23,19 @@ export class EditRunForm extends React.Component {
                 <label htmlFor="bottomLayer">Bottom Layer</label>
                 <input type="text" defaultValue={run.bottomLayer} id="bottomLayer" name="bottomLayer" />
                 <br />
-                <label htmlFor="headband">Headband</label>
-                <input type="checkbox" defaultValue={run.headband} id="headband" name="headband" />
-                <label htmlFor="gloves">Gloves</label>
-                <input type="checkbox" defaultValue={run.gloves} id="gloves" name="gloves" />
-                <label htmlFor="runninghat">Running Hat</label>
-                <input type="checkbox" defaultValue={run.runningHat} id="runninghat" name="runninghat" />
-                <br />
+                {selectedExtras.map((extra, index) => (
+                    <div className="inline" key={index}>
+                        <label htmlFor={extra}>{extra}</label>
+                        <input type="checkbox" id={extra} value={extra} name="extras" defaultChecked/>
+                    </div>
+                ))}
+                {unselectedExtras.map((extra, index) => (
+                    <div className="inline" key={index}>
+                        <label htmlFor={extra}>{extra}</label>
+                        <input type="checkbox" id={extra} value={extra} name="extras"/>
+                    </div>
+                ))}
+                {unselectedExtras.length || selectedExtras.length ? <br /> : <div></div>}
                 <label htmlFor="notes">Notes</label>
                 <br />
                 <textarea id="notes" defaultValue={run.notes} name="notes" rows="2" cols="30"></textarea>

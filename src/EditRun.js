@@ -39,6 +39,8 @@ export class EditRun extends React.Component {
 
     handleUpdateRun(e) {
         const formData = new FormData(e.target);
+        const extras = formData.getAll('extras');
+        formData.set('extras', JSON.stringify(extras));
         const run = this.props.run;
         var params = 'userId=' + run.userId + '&date=' + run.date + '&temperature=' + run.temperature + '&';
         for (var [key, val] of formData.entries()) {
@@ -59,7 +61,7 @@ export class EditRun extends React.Component {
         const showEditRun = this.props.run ? true : false;
         return (
             <Modal show={showEditRun}>
-                <EditRunForm run={this.props.run} onSubmit={this.handleUpdateRun} onDelete={this.handleDeleteRun} />
+                <EditRunForm run={this.props.run} extras={this.props.extras} onSubmit={this.handleUpdateRun} onDelete={this.handleDeleteRun} />
             </Modal>
         )
     }

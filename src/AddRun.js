@@ -55,9 +55,13 @@ export class AddRun extends React.Component {
     handleSubmit(e) {
         //KGTODO: use formData.append
         const formData = new FormData(e.target);
-        const date = Date.now();
-        var params = 'userId=1&date=' + date + '&';
+        formData.append('userId', 1);
+        formData.append('date', Date.now())
+        const extras = formData.getAll('extras');
+        formData.set('extras', JSON.stringify(extras));
+        var params = '';
         for (var [key, val] of formData.entries()) {
+            console.error(key, val)
             params += key + '=' + val + '&';
         }
         params = params.slice(0, -1);
@@ -70,7 +74,7 @@ export class AddRun extends React.Component {
         return (
             <Modal show={this.props.showAddRun}>
                 <h2>Add Run</h2>
-                <AddRunForm onSubmit={this.handleSubmit} onCancel={this.props.onCancel} currWeather={this.state.currWeather} />
+                <AddRunForm onSubmit={this.handleSubmit} onCancel={this.props.onCancel} currWeather={this.state.currWeather} extras={this.props.extras} />
             </Modal>
         )
     }
