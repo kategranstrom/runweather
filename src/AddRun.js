@@ -1,4 +1,5 @@
 import React from 'react';
+import { fetchCurrWeather } from './Utils'
 import { Modal } from './Modal';
 import { AddRunForm } from './AddRunForm';
 
@@ -19,16 +20,8 @@ export class AddRun extends React.Component {
         this.getCurrWeather();
     }
 
-    fetchCurrWeather() {
-        var key = 'cfa60c427275f8728cc2d1a469c4edb2';
-        //KGTODO: make this variable
-        var city = 'Revelstoke'
-        return fetch('https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=' + key)
-            .then(function (response) { return response.json() })
-    }
-
     getCurrWeather() {
-        this.fetchCurrWeather().then(function (data) {
+        fetchCurrWeather().then(function (data) {
             console.log(data)
             this.setState({
                 currWeather: data

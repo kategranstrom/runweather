@@ -9,13 +9,13 @@ export class EditRunForm extends React.Component {
 
     render() {
         const run = this.props.run || {};
-        const selectedExtras = JSON.parse(run.extras);
+        const selectedExtras = JSON.parse(run.extras) || [];
         const unselectedExtras = this.props.extras.filter(extra => !selectedExtras.includes(extra))
         console.error('run', run)
         return (
             <div>
                 <div className="date">{this.getDateString(run.date)}</div>
-                <div className="weather">Temp: {run.temperature} Feels like: {run.feelslike} Humidity: {run.humidity}</div>
+                <div className="weather">Temp: {run.temperature} Feels like: {run.feelsLike} Humidity: {run.humidity}</div>
                 <form onSubmit={this.props.onSubmit}>
                 <label htmlFor="topLayer">Top Layer</label>
                 <input type="text" defaultValue={run.topLayer} id="topLayer" name="topLayer" />

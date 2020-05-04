@@ -3,6 +3,7 @@ import { Run } from './Run';
 import { SideBar } from './SideBar';
 import { NavBar } from './NavBar';
 import { EditRun } from './EditRun';
+import { fetchCurrWeather } from './Utils';
 
 const API = 'http://localhost:8000';
 
@@ -38,7 +39,6 @@ export class RunManager extends React.Component {
 
                     // Examine the text in the response
                     return response.json().then(function (data) {
-                        console.log(data)
                         return data;
                     });
                 }
@@ -50,13 +50,25 @@ export class RunManager extends React.Component {
 
     getWorkouts() {
         this.fetchWorkouts().then(function (response) {
-            const runs = response.data;
-            runs.sort((a, b) => b[this.state.sortBy] - a[this.state.sortBy])
-            this.setState({
-                loading: false,
-                runs: runs || []
-            })
+            const runs = response.data || [];
+            this.sortRuns(runs).then(function (runs) {
+                this.setState({
+                    loading: false,
+                    runs: runs
+                })
+            }.bind(this));
         }.bind(this));
+    }
+
+    sortRuns(runs) {
+        if(this.state.sortBy ===  'mostrelevant') {
+            return fetchCurrWeather().then(function(data) {
+                const feelsLike = ((data.main.feels_like - 273.15) * 100) / 100;
+                return runs.sort((a, b) => Math.abs(a['feelsLike'] - feelsLike) - Math.abs(b['feelsLike'] - feelsLike));
+            });
+        } else {
+            return Promise.resolve(runs.sort((a, b) => b[this.state.sortBy] - a[this.state.sortBy]));
+        }
     }
 
     handleEditRun(run) {
