@@ -10,8 +10,7 @@ export class EditRunForm extends React.Component {
     render() {
         const run = this.props.run || {};
         const selectedExtras = JSON.parse(run.extras) || [];
-        const unselectedExtras = this.props.extras.filter(extra => !selectedExtras.includes(extra))
-        console.error('run', run)
+        const unselectedExtras = this.props.extras.filter(extra => !selectedExtras.includes(extra));
         return (
             <div>
                 <div className="date">{this.getDateString(run.date)}</div>

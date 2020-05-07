@@ -5,8 +5,6 @@ import { NavBar } from './NavBar';
 import { EditRun } from './EditRun';
 import { fetchCurrWeather } from './Utils';
 
-const API = 'http://localhost:8000';
-
 export class RunManager extends React.Component {
     constructor(props) {
         super(props);
@@ -28,7 +26,7 @@ export class RunManager extends React.Component {
     }
 
     fetchWorkouts() {
-        return fetch(API + '/api/workouts')
+        return fetch('api/workouts')
             .then(
                 function (response) {
                     if (response.status !== 200) {

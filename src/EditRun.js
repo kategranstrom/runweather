@@ -2,8 +2,6 @@ import React from 'react';
 import { Modal } from './Modal';
 import { EditRunForm } from './EditRunForm';
 
-const API = 'http://localhost:8000'
-
 export class EditRun extends React.Component {
     constructor(props) {
         super(props);
@@ -13,7 +11,7 @@ export class EditRun extends React.Component {
 
     updateWorkout(id, params) {
         //KGTODO: edit db to store new params --> variable params?
-        fetch(API + '/api/updateworkout/' + id, {
+        fetch('api/updateworkout/' + id, {
             method: 'POST',
             headers: {
                 "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
@@ -28,7 +26,7 @@ export class EditRun extends React.Component {
     }
 
     deleteWorkout(id) {
-        fetch('http://localhost:8000/api/workout/delete/' + id)
+        fetch('api/workout/delete/' + id)
             .then(function (data) {
                 console.log('Request succeeded with JSON response', data);
             })

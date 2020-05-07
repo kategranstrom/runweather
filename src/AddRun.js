@@ -3,8 +3,6 @@ import { fetchCurrWeather } from './Utils'
 import { Modal } from './Modal';
 import { AddRunForm } from './AddRunForm';
 
-const API = 'http://localhost:8000'
-
 export class AddRun extends React.Component {
     constructor(props) {
         super(props);
@@ -22,7 +20,6 @@ export class AddRun extends React.Component {
 
     getCurrWeather() {
         fetchCurrWeather().then(function (data) {
-            console.log(data)
             this.setState({
                 currWeather: data
             })
@@ -31,7 +28,7 @@ export class AddRun extends React.Component {
 
     saveWorkout(params) {
         //KGTODO: edit db to store new params --> variable params?
-        fetch(API + '/api/workout/', {
+        fetch('api/workout/', {
             method: 'POST',
             headers: {
                 "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
@@ -54,7 +51,6 @@ export class AddRun extends React.Component {
         formData.set('extras', JSON.stringify(extras));
         var params = '';
         for (var [key, val] of formData.entries()) {
-            console.error(key, val)
             params += key + '=' + val + '&';
         }
         params = params.slice(0, -1);
