@@ -150,6 +150,10 @@ app.get("/api/workout/delete/:id", (req, res, next) => {
     });
 })
 
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname+'/build/index.html'));
+  });
+
 // Default response for any other request
 app.use(function(req, res){
     res.status(404);
