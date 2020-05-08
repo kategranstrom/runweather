@@ -18,10 +18,7 @@ app.listen(HTTP_PORT, () => {
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'build')));
 
-// Root endpoint
-app.get("/", (req, res, next) => {
-    res.json({"message":"Ok"})
-});
+
 
 app.get("/api/workouts", (req, res, next) => {
     var sql = "select * from workout"
@@ -151,7 +148,9 @@ app.get("/api/workout/delete/:id", (req, res, next) => {
 })
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname+'/build/index.html'));
+    var root = path.dirname(require.main.filename);
+    console.error(root)
+    res.sendFile(path.join(__dirname + '/build/index.html'));
   });
 
 // Default response for any other request

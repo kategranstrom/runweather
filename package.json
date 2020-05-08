@@ -20,7 +20,7 @@
   "scripts": {
     "start:all": "npm-run-all --parallel start start:web",
     "start:web": "react-scripts start",
-    "start": "node src/server",
+    "start": "node index.js",
     "build": "react-scripts build",
     "heroku-postbuild": "npm run build",
     "test": "react-scripts test",
