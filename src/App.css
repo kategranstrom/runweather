@@ -60,41 +60,17 @@ h1 {
 }
 
 .description {
+  display: flex;
+  align-items: center;
   color: rgba(0,0,0,.51);
-  font-size: 1em;
+  font-size: 14px;
 }
 
-/*.ripple {
- position: absolute;
-  border-radius: 50%;
-  background-color: rgba(204, 204, 204, 1);
-  width: 100px;
-  height: 100px;
-  /*margin-top: 0px;
-  margin-left: 0px;*/
-  /*left: var(--click-x);
-  top: var(--click-y);
-  opacity: 1;
+.weathericon {
+  display: inline-block;
+  height: 25px;
+  font-size: 24px;
 }
-
-.card:active > .ripple {
-  animation: ripple 1s;
-}
-
-@keyframes ripple {
-  0% {
-    top: var(--click-y);
-    left: var(--click-x);
-    opacity: 1;
-    transform: scale(0);
-  }
-  100% {
-    top: var(--click-y);
-    left: var(--click-x);
-    opacity: 0;
-    transform: scale(10);
-  }
-}*/
 
 .action {
     background-color: #264A91;

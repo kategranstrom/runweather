@@ -25,7 +25,7 @@ export class AddRunForm extends React.Component {
     }
 
     getWindSpeed() {
-        return this.props.currWeather.wind.speed*3.6;
+        return Math.round((this.props.currWeather.wind.speed*3.6)*100)/100;
     }
 
     getDescrption() {
