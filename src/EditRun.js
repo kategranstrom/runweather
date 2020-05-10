@@ -59,6 +59,7 @@ export class EditRun extends React.Component {
         const showEditRun = this.props.run ? true : false;
         return (
             <Modal show={showEditRun}>
+                <h2>Edit Workout</h2>
                 <EditRunForm run={this.props.run} extras={this.props.extras} onSubmit={this.handleUpdateRun} onDelete={this.handleDeleteRun} />
             </Modal>
         )

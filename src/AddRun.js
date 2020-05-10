@@ -62,7 +62,7 @@ export class AddRun extends React.Component {
     render() {
         return (
             <Modal show={this.props.showAddRun}>
-                <h2>Add Run</h2>
+                <h2>Add Workout</h2>
                 <AddRunForm onSubmit={this.handleSubmit} onCancel={this.props.onCancel} currWeather={this.state.currWeather} extras={this.props.extras} />
             </Modal>
         )

@@ -100,7 +100,7 @@ export class RunManager extends React.Component {
             <div>
                 <header className="App-header">
                     <SideBar sortBy={this.state.sortBy} onChangeSortBy={this.changeSortBy} extras={this.state.extras} onChangeExtras={this.changeExtras}/>
-                    <h1>Runs</h1>
+                    <h1>Workouts</h1>
                 </header>
                 <div className="content-wrapper">
                     {this.state.runs.map((run, index) => (

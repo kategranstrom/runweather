@@ -37,19 +37,19 @@ export class AddRunForm extends React.Component {
         return (
             <form onSubmit={this.props.onSubmit}>
                 <label htmlFor="temperature">Temperature (°C) </label>
-                <input type="number" defaultValue={this.getTemperature()} id="temperature" name="temperature" />
+                <input type="number" max="100" className="hasDefault" defaultValue={this.getTemperature()} id="temperature" name="temperature" />
                 <br />
                 <label htmlFor="feelsLike">Feels Like (°C) </label>
-                <input type="number" defaultValue={this.getFeelsLike()} id="feelsLike" name="feelsLike" />
+                <input type="number" className="hasDefault" defaultValue={this.getFeelsLike()} id="feelsLike" name="feelsLike" />
                 <br />
                 <label htmlFor="humidity">Humidity (%)</label>
-                <input type="number" defaultValue={this.getHumidity()} id="humidity" name="humidity" />
+                <input type="number" className="hasDefault" defaultValue={this.getHumidity()} id="humidity" name="humidity" />
                 <br />
                 <label htmlFor="windSpeed">Wind Speed (km/h)</label>
-                <input type="number" defaultValue={this.getWindSpeed()} id="windSpeed" name="windSpeed" />
+                <input type="number" className="hasDefault" defaultValue={this.getWindSpeed()} id="windSpeed" name="windSpeed" />
                 <br />
                 <label htmlFor="description">Description</label>
-                <input type="text" defaultValue={this.getDescrption()} id="description" name="description" />
+                <input type="text" maxsize="4" className="hasDefault" defaultValue={this.getDescrption()} id="description" name="description" />
                 <br />
                 <label htmlFor="topLayer">Top Layer</label>
                 <input type="text" id="topLayer" name="topLayer" />

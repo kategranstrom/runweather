@@ -30,7 +30,7 @@ export class NavBar extends React.Component {
                 <div className="navbar">
                     <div className="navitem" onClick={this.toggleAddRun}>
                         <div className="navicon"> <MdAdd /> </div>
-                        Add Run
+                        Workout
                     </div>
                 </div>
                 <AddRun showAddRun={this.state.showAddRun} onCancel={this.toggleAddRun} update={this.update} extras={this.props.extras}/>
