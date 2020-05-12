@@ -33,18 +33,18 @@ export class Run extends React.Component {
                 <div className="weather">
                     {run.temperature}°C
                     <br/>
-                    <span className="description">{run.description}</span>
+                    <span className="carddescription">{run.description}</span>
                 </div>
                 <div className="date">
                     {this.getDateString(run.date)}
                 </div>
-                <div className="description">
+                <div className="carddescription">
                     <div className="weathericon"><WiHumidity /></div>
                     {run.humidity}% {'\u00A0 \u00A0'}
                     <div className="weathericon"><WiStrongWind /> </div>
                     {run.windSpeed} km/hr
                 </div>
-                <div className="description">
+                <div className="carddescription">
                     {this.getOutfitDescription()}
                 </div>
             </div>

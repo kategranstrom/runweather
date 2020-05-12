@@ -1,4 +1,6 @@
 import React from 'react';
+import { WiHumidity } from 'react-icons/wi';
+import { WiStrongWind } from 'react-icons/wi';
 import "./form.css";
 
 export class EditRunForm extends React.Component {
@@ -13,8 +15,19 @@ export class EditRunForm extends React.Component {
         const unselectedExtras = this.props.extras.filter(extra => !selectedExtras.includes(extra));
         return (
             <div>
+                <div className="editdescription">
+                    {run.temperature}°C
+                    <br/>
+                    Feels like {run.feelsLike}°C
+                    <div className="centervertical">
+                        {run.description} {'\u00A0 \u00A0'}
+                        <div className="weathericon"><WiHumidity /></div>
+                        {run.humidity}% {'\u00A0 \u00A0'}
+                        <div className="weathericon"><WiStrongWind /> </div>
+                        {run.windSpeed} km/hr
+                    </div>
+                </div>
                 <div className="date">{this.getDateString(run.date)}</div>
-                <div className="weather">Temp: {run.temperature} Feels like: {run.feelsLike} Humidity: {run.humidity}</div>
                 <form onSubmit={this.props.onSubmit}>
                 <label htmlFor="topLayer">Top Layer</label>
                 <input type="text" defaultValue={run.topLayer} id="topLayer" name="topLayer" />

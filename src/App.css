@@ -28,7 +28,7 @@ h1 {
   background-color: white;
   border: none;
   width: 90%;
-  /*max-width: 800px;*/
+  max-width: 800px;
   border-radius: .5em;
   box-shadow: -1px 1px 5px 0px rgba(204, 204, 204, .2);
   padding: 8px 32px;
@@ -59,7 +59,7 @@ h1 {
   color: #343434;
 }
 
-.description {
+.carddescription {
   display: flex;
   align-items: center;
   color: rgba(0,0,0,.51);
@@ -73,7 +73,7 @@ h1 {
 }
 
 .action {
-    background-color: #264A91;
+    background-color: #555e6f;
     color: white;
     border: none;
     border-radius: 4px;
@@ -84,7 +84,7 @@ h1 {
 }
 
 .action:hover {
-  background-color: #163675;
+  background-color: #282c34;
 }
 
 .action:active, .action:focus {
@@ -99,4 +99,18 @@ h1 {
   to {
     transform: scale(1.1);
   }
+}
+
+.editdescription {
+  display: inline-block;
+  padding: 8px 0;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  margin-bottom: 8px;
+}
+
+.centervertical {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
