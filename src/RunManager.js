@@ -11,7 +11,7 @@ export class RunManager extends React.Component {
         this.state = {
             loading: true,
             runs: [],
-            sortBy: 'date',
+            sortBy: 'mostrelevant',
             extras: ['Gloves', 'Headband', 'Running Hat'],
             editingRun: null
         }
@@ -101,6 +101,11 @@ export class RunManager extends React.Component {
                 <header className="App-header">
                     <SideBar sortBy={this.state.sortBy} onChangeSortBy={this.changeSortBy} extras={this.state.extras} onChangeExtras={this.changeExtras}/>
                     <h1>Workouts</h1>
+                    <div className="subheader">
+                        Add a workout + what you wish you wore
+                        <br />
+                        Sorted by relevance to current weather
+                    </div>
                 </header>
                 <div className="content-wrapper">
                     {this.state.runs.map((run, index) => (

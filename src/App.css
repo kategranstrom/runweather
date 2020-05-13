@@ -8,7 +8,7 @@
   background-color: #282c34;
   position: fixed;
   width: 100%;
-  height: 88px;
+  height: 130px;
   font-size: 1.3em;
   color: white;
   /*box-shadow: 0 0px 1px 1px #ccc;*/
@@ -16,11 +16,15 @@
 }
 
 h1 {
-  margin: .4em 0;
+  margin: .4em 0 .1em 0;
+}
+
+.subheader {
+  font-size: .7em;
 }
 
 .content-wrapper {
-  padding-top: 88px;
+  padding-top: 130px;
   padding-bottom: 48px;
 }
 
