@@ -1,3 +1,7 @@
+https://workoutweathertracker.herokuapp.com/
+A web app created to learn React. The frontend uses React and CSS. Data is stored using Node.js SQLite, and communicated with Express.js.
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
